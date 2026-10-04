@@ -1,11 +1,11 @@
 {
   "site": "https://notice-clock.pages.dev/",
   "contract": "0xEaB42219B0707Aa42a8E76254E833A447aB1DD8E",
-  "noticeId": "NOTICE-1791085029056",
+  "noticeId": "NOTICE-1791086479549",
   "state": "TIMELY",
   "gapDays": 44,
   "transactions": [
-    "0x570b0d1409e11cbbb3ad9cd79081479330c0232b71ffd235a3adc61adf36e399",
-    "0x6a095a9332b89248eb08806f85a184099a1845a70ccfe81c2912e1a4995dcfe2"
+    "0x5a6405d4481ba814ca08d5d60b9a90643b63782f0dd1da7fb57361a532f21754",
+    "0x2d77587c06072a4088ac37a71a07309f5c3199e7367a1ab358f46ed4e3317a81"
   ]
 }

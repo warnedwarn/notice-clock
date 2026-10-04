@@ -1,0 +1,8 @@
+{
+  "network": "StudioNet",
+  "account": "warnedwarn",
+  "contractAddress": "0xEaB42219B0707Aa42a8E76254E833A447aB1DD8E",
+  "deploymentTransaction": "0x25f3839e2b3bf8017db60f737bcaca4f447986887fbdd1d7ab2eb25ec868ff19",
+  "sourceSha256": "c0cf0a91d91ea7acc8bd09d744b616033c6f550b179554dd465b349043958b17",
+  "repository": "https://github.com/warnedwarn/notice-clock"
+}

@@ -2,6 +2,16 @@ import json,re,time
 from pathlib import Path
 from genlayer_py import create_account,create_client
 from genlayer_py.chains import studionet
+from genlayer_py.contracts import actions as contract_actions
+
+def calldata_compat(method=None,args=None,kwargs=None):
+ out={}
+ if method is not None:out['method']=method
+ if args:out['args']=args
+ if kwargs:out['kwargs']=kwargs
+ return out
+
+contract_actions.make_calldata_object=calldata_compat
 ROOT=Path(__file__).parents[1];ENV=(ROOT.parents[3]/'accounts.env').read_text();ADDRESS=json.loads((ROOT/'deployment.json').read_text())['contractAddress']
 def account(number):return create_account(account_private_key=re.search(rf'^ACCOUNT_{number}_GENLAYER_PRIVATE_KEY\s*=\s*"?([^"\r\n]+)',ENV,re.M).group(1).strip())
 def client(number):return create_client(chain=studionet,account=account(number))

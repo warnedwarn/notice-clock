@@ -1,0 +1,14 @@
+{
+  "site": "https://notice-clock.pages.dev/",
+  "cloudflareDeployment": "https://7cbc2b9d.notice-clock.pages.dev/",
+  "contract": "0xEaB42219B0707Aa42a8E76254E833A447aB1DD8E",
+  "noticeId": "NOTICE-1791085029056",
+  "state": "TIMELY",
+  "gapDays": 44,
+  "transactions": {
+    "post": "0x570b0d1409e11cbbb3ad9cd79081479330c0232b71ffd235a3adc61adf36e399",
+    "measure": "0x6a095a9332b89248eb08806f85a184099a1845a70ccfe81c2912e1a4995dcfe2"
+  },
+  "observedStatus": "DEMO FINALIZED",
+  "fixtureDisclosure": "Temporary browser wallets and repository evidence pages are operator-controlled fixtures."
+}

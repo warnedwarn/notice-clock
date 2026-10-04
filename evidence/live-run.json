@@ -1,0 +1,24 @@
+{
+  "noticeId": "NOTICE-1791084136",
+  "transactions": {
+    "post": "0xb31d317fbf40790465d0c910ce862411f8c4ed8cc4437c6e99b4895815289d6e",
+    "measure": "0xb451274c30014ce294d417908277af8a0d3e4b80bbfee03ce6010a10f5ca84aa"
+  },
+  "state": {
+    "conflict_indexes": [],
+    "effective_date": "2026-10-15",
+    "effective_digest": "c00d1d78d3fbe500ecbf43cf6c8db6605465bff8e885c39c99bf1410f7dc76a7",
+    "effective_url": "https://cdn.jsdelivr.net/gh/warnedwarn/notice-clock@main/docs/evidence/effective-date.md",
+    "gap_days": 44,
+    "id": "NOTICE-1791084136",
+    "minimum_days": 30,
+    "owner": "0x013A0745a3b2DbF87f4AB377266fCcb7e6eEC88A",
+    "publication_date": "2026-09-01",
+    "publication_digest": "1aafb79f93ccb5e2d273b2443353c48efefca2fe3e4cca35ff71d385ea4514e5",
+    "publication_url": "https://raw.githubusercontent.com/warnedwarn/notice-clock/main/docs/evidence/publication.md",
+    "revised": false,
+    "state": "TIMELY",
+    "subject": "Harbor evening entry procedure"
+  },
+  "fixtureDisclosure": "Wallets and evidence pages are operator-controlled fixtures."
+}

@@ -4,5 +4,12 @@
   "contractAddress": "0xEaB42219B0707Aa42a8E76254E833A447aB1DD8E",
   "deploymentTransaction": "0x25f3839e2b3bf8017db60f737bcaca4f447986887fbdd1d7ab2eb25ec868ff19",
   "sourceSha256": "c0cf0a91d91ea7acc8bd09d744b616033c6f550b179554dd465b349043958b17",
-  "repository": "https://github.com/warnedwarn/notice-clock"
+  "sourceCommit": "103aa2fb9a6d71d02a33952e49f4dacb3de17afa",
+  "repository": "https://github.com/warnedwarn/notice-clock",
+  "publicSite": "https://notice-clock.pages.dev/",
+  "cloudflareDeployment": "https://7cbc2b9d.notice-clock.pages.dev/",
+  "liveRecordId": "NOTICE-1791084136",
+  "liveState": "TIMELY",
+  "browserRecordId": "NOTICE-1791085029056",
+  "browserState": "TIMELY"
 }

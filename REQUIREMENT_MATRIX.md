@@ -6,5 +6,6 @@
 | Deterministic calendar calculation | Direct date-math test | PASS |
 | One owner-only correction | Contract guards and tests | PASS |
 | Permissionless measurement | Contract surface test | PASS |
-| StudioNet deployment and source match | Deployment receipt | UNVERIFIED |
-| Canonical browser run | Fresh public demo | UNVERIFIED |
+| StudioNet deployment and source match | `evidence/deployment-verification.json` | PASS |
+| Complete permissionless measurement | `evidence/live-run.json`: 44-day `TIMELY` result | PASS |
+| Canonical browser run | `evidence/browser-run.json`: fresh public demo | PASS |

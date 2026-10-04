@@ -29,8 +29,8 @@ genvm-lint check contracts/contract.py
 
 Sample records and demo wallets are operator-controlled fixtures, not authenticated government notices.
 
-## Published clock face
+## Published measurement station
 
-The working desk is live at https://notice-clock.pages.dev/ and its source is at https://github.com/warnedwarn/notice-clock. The StudioNet contract is `0xEaB42219B0707Aa42a8E76254E833A447aB1DD8E`.
+The public station is live at https://notice-clock.pages.dev/ and its source is at https://github.com/warnedwarn/notice-clock. The StudioNet contract is `0xEaB42219B0707Aa42a8E76254E833A447aB1DD8E`. Its interface uses source tickets, a circular day dial, a physical measurement lever, and a human-readable result stamp—there is no generic JSON receipt panel.
 
 Two independent runs now agree on the same calendar result. The scripted record `NOTICE-1791084136` and the canonical browser record `NOTICE-1791085029056` both resolved to `TIMELY` with a 44-day interval. Receipts, digests, and transaction hashes are preserved in `evidence/` rather than folded into this clock-face overview.

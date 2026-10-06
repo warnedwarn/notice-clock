@@ -31,6 +31,6 @@ Sample authorities, records, and demo wallets are operator-controlled fixtures u
 
 ## Published measurement station
 
-The public station is live at https://notice-clock.pages.dev/ and its source is at https://github.com/warnedwarn/notice-clock. The StudioNet contract is `0xEaB42219B0707Aa42a8E76254E833A447aB1DD8E`. Its interface uses source tickets, a circular day dial, a physical measurement lever, and a human-readable result stamp—there is no generic JSON receipt panel.
+The public station is live at https://notice-clock.pages.dev/ and its source is at https://github.com/warnedwarn/notice-clock. The corrected StudioNet contract is `0x7aB5599F4E80DD61781D14252d73D04Bf7E8Bdbe`. Its interface uses source tickets, a circular day dial, a physical measurement lever, and a human-readable result stamp—there is no generic JSON receipt panel.
 
-Two independent runs now agree on the same calendar result. The scripted record `NOTICE-1791084136` and the redesigned canonical browser record `NOTICE-1791086479549` both resolved to `TIMELY` with a 44-day interval. Receipts, digests, and transaction hashes are preserved in `evidence/` rather than folded into this station overview.
+The corrected lifecycle record `NOTICE-1791257206` resolved to `AUTHORIZED`, measured a 44-day interval, and was consumed exactly once by its named beneficiary. Receipts, ordered source digests, and every transaction hash are preserved in `evidence/` rather than folded into this station overview.

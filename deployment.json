@@ -1,15 +1,11 @@
 {
   "network": "StudioNet",
   "account": "warnedwarn",
-  "contractAddress": "0xEaB42219B0707Aa42a8E76254E833A447aB1DD8E",
-  "deploymentTransaction": "0x25f3839e2b3bf8017db60f737bcaca4f447986887fbdd1d7ab2eb25ec868ff19",
-  "sourceSha256": "c0cf0a91d91ea7acc8bd09d744b616033c6f550b179554dd465b349043958b17",
-  "sourceCommit": "103aa2fb9a6d71d02a33952e49f4dacb3de17afa",
-  "repository": "https://github.com/warnedwarn/notice-clock",
-  "publicSite": "https://notice-clock.pages.dev/",
-  "cloudflareDeployment": "https://ac6a4ad6.notice-clock.pages.dev/",
-  "liveRecordId": "NOTICE-1791084136",
-  "liveState": "TIMELY",
-  "browserRecordId": "NOTICE-1791086479549",
-  "browserState": "TIMELY"
+  "contractAddress": "0x7aB5599F4E80DD61781D14252d73D04Bf7E8Bdbe",
+  "deploymentTransaction": "0xdb9086ff13160ed9bc3d6df72534b8a80436dbfdeb38e78ffcec7c0bfbd9d004",
+  "deploymentConsensus": "MAJORITY_AGREE",
+  "deploymentExecution": "SUCCESS",
+  "sourceSha256": "206dd8f0b1bd028154f2d89963516f3c0a8769f57488302c6332a742646cf148",
+  "sourceCommit": "ffcfffffa6808b6cf080ad8af910bd77615c4bb0",
+  "repository": "https://github.com/warnedwarn/notice-clock"
 }

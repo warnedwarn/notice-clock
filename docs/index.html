@@ -1,80 +1,828 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Notice Clock</title>
-<style>
-:root{--navy:#0b2736;--deep:#061c28;--paper:#f4efdf;--orange:#f05a36;--yellow:#f2c94c;--sky:#b9dce8;--line:#34505c;--white:#fffdf5}*{box-sizing:border-box}body{margin:0;background:var(--navy);color:var(--paper);font-family:"Trebuchet MS",Arial,sans-serif}button,input,select{font:inherit}.station{min-height:100vh;display:grid;grid-template-columns:76px 1fr}.rail{height:100vh;position:sticky;top:0;background:var(--orange);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:20px 0;color:var(--deep)}.rail b,.rail span,.rail button{writing-mode:vertical-rl;transform:rotate(180deg)}.rail b{font:900 15px/1 ui-monospace,monospace;letter-spacing:.14em}.rail span{font:800 9px ui-monospace,monospace;letter-spacing:.17em}.rail button{border:2px solid var(--deep);background:transparent;padding:13px 9px;font:900 9px ui-monospace,monospace}.desk{padding:28px 3.5vw 60px}.intro{display:grid;grid-template-columns:1fr 330px;gap:32px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:22px}.intro small{font:800 10px ui-monospace,monospace;letter-spacing:.17em;color:var(--sky)}.intro h1{font-size:clamp(3.2rem,7vw,7.8rem);line-height:.78;letter-spacing:-.075em;margin:8px 0 0}.intro p{margin:0;font:13px/1.6 ui-monospace,monospace;color:var(--sky);border-left:8px solid var(--yellow);padding-left:18px}.date-dial{display:grid;grid-template-columns:1fr minmax(190px,260px) 1fr;align-items:center;gap:3vw;padding:40px 2vw}.date-ticket{border:1px solid var(--line);padding:22px;background:var(--deep);position:relative}.date-ticket:before{content:"";position:absolute;inset:8px;border:1px dashed var(--line);pointer-events:none}.date-ticket small{position:relative;font:800 9px ui-monospace,monospace;letter-spacing:.15em;color:var(--sky)}.date-ticket strong{position:relative;display:block;font:900 clamp(3rem,7vw,7rem)/.8 ui-monospace,monospace;color:var(--white);margin:24px 0 10px}.date-ticket span{position:relative;font:800 11px ui-monospace,monospace;color:var(--yellow)}.dial{aspect-ratio:1;border:2px solid var(--paper);border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--orange) 0 44deg,transparent 44deg 360deg)}.dial:before{content:"";position:absolute;inset:14px;border:1px solid var(--line);border-radius:50%;background:var(--navy)}.dial-content{position:relative;text-align:center}.dial strong{display:block;font:900 clamp(3.2rem,7vw,6rem)/.8 ui-monospace,monospace;color:var(--yellow)}.dial small{font:800 9px ui-monospace,monospace;letter-spacing:.14em}.dial em{display:block;margin-top:12px;color:var(--sky);font:10px ui-monospace,monospace}.progress-stations{display:grid;grid-template-columns:1.15fr .7fr 1fr;border:1px solid var(--line);background:var(--deep)}.stage{min-height:360px;padding:24px;border-right:1px solid var(--line)}.stage:last-child{border-right:0}.stage-no{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:22px}.stage-no b{font:900 11px ui-monospace,monospace;color:var(--orange);letter-spacing:.14em}.stage-no span{font:800 9px ui-monospace,monospace;color:var(--sky)}.field{display:grid;gap:5px;margin:13px 0}.field label{font:800 9px ui-monospace,monospace;letter-spacing:.1em;color:var(--sky)}.field input,.field select{width:100%;border:0;border-bottom:1px solid var(--sky);background:transparent;color:var(--white);padding:9px 2px;outline:none}.field select option{background:var(--deep)}details{border-top:1px solid var(--line);margin-top:18px;padding-top:13px}summary{cursor:pointer;font:800 9px ui-monospace,monospace;letter-spacing:.12em;color:var(--yellow)}.action{width:100%;border:0;padding:14px;margin-top:17px;background:var(--orange);color:var(--deep);font:900 10px ui-monospace,monospace;letter-spacing:.1em}.measure-stage{display:flex;flex-direction:column;justify-content:space-between;text-align:center}.lever{width:150px;height:150px;margin:auto;border:2px solid var(--paper);border-radius:50%;background:var(--yellow);color:var(--deep);font:900 13px/1.2 ui-monospace,monospace;box-shadow:0 0 0 12px var(--deep),0 0 0 13px var(--line)}.measure-stage p{font:11px/1.6 ui-monospace,monospace;color:var(--sky)}.demo{background:transparent;color:var(--yellow);border:1px solid var(--yellow)}.verdict-stage{background:var(--paper);color:var(--deep)}.verdict-stage .stage-no{border-color:#c2bcae}.verdict-stage .stage-no span{color:#56717b}.stamp{border:3px double var(--orange);padding:20px;text-align:center;transform:rotate(-1deg);margin-bottom:18px}.stamp span{display:block;font:900 20px ui-monospace,monospace;color:var(--orange);letter-spacing:.08em}.stamp strong{display:block;font:900 4.5rem/1 ui-monospace,monospace;margin:10px 0}.stamp small{font:800 9px ui-monospace,monospace}.chain-log{display:grid;gap:8px;font:10px/1.45 ui-monospace,monospace;max-height:180px;overflow:auto}.chain-row{display:grid;grid-template-columns:90px 1fr;gap:8px;border-bottom:1px solid #c9c1b0;padding-bottom:7px}.chain-row b{color:#657781}.chain-row span{overflow-wrap:anywhere}.error{color:#9d251d;font-weight:800}.utility{display:grid;grid-template-columns:1fr auto auto;gap:10px;margin-top:14px}.utility input{min-width:0;border:1px solid var(--line);background:var(--deep);color:white;padding:11px}.utility button{border:1px solid var(--sky);background:transparent;color:var(--sky);padding:10px;font:800 9px ui-monospace,monospace}.status{margin:16px 0 0;color:var(--sky);font:10px/1.5 ui-monospace,monospace;overflow-wrap:anywhere}@media(max-width:900px){.station{grid-template-columns:1fr}.rail{position:static;height:auto;flex-direction:row;padding:13px 18px}.rail b,.rail span,.rail button{writing-mode:initial;transform:none}.intro{grid-template-columns:1fr}.date-dial{grid-template-columns:1fr}.dial{width:210px;margin:auto}.progress-stations{grid-template-columns:1fr}.stage{border-right:0;border-bottom:1px solid var(--line)}.stage:last-child{border-bottom:0}.utility{grid-template-columns:1fr}.intro h1{font-size:4rem}}
-</style>
-</head>
-<body>
-<main class="station">
- <aside class="rail"><b>NOTICE CLOCK</b><span>STUDIONET · PUBLIC INTERVAL</span><button id="connect">CONNECT WALLET</button></aside>
- <section class="desk">
-  <header class="intro"><div><small>LEAD-TIME MEASUREMENT STATION</small><h1>Dates enter.<br>Days decide.</h1></div><p>Validators pin one publication date and one effective date to their original records. The contract—not the model—counts the interval.</p></header>
-  <section class="date-dial">
-   <article class="date-ticket"><small>PUBLICATION RECORD</small><strong id="publicationDay">01</strong><span id="publicationLabel">SEP 2026</span></article>
-   <div class="dial"><div class="dial-content"><strong id="gap">—</strong><small>DAYS APART</small><em id="minimumLabel">minimum 30</em></div></div>
-   <article class="date-ticket"><small>EFFECTIVE RECORD</small><strong id="effectiveDay">15</strong><span id="effectiveLabel">OCT 2026</span></article>
-  </section>
-  <section class="progress-stations">
-   <article class="stage">
-    <div class="stage-no"><b>01 · PIN THE RECORDS</b><span>OWNER</span></div>
-    <div class="field"><label>NOTICE ID</label><input id="nid" value="NC-WEB"></div>
-    <div class="field"><label>SUBJECT</label><input id="subject" value="Harbor evening entry procedure"></div>
-    <div class="field"><label>MINIMUM LEAD DAYS</label><input id="minimum" type="number" value="30"></div>
-    <div class="field"><label>BENEFICIARY WALLET</label><input id="beneficiary" value="0x013A0745a3b2DbF87f4AB377266fCcb7e6eEC88A"></div>
-    <div class="field"><label>AUTHORIZED CONSEQUENCE</label><input id="consequence" value="Release the harbor access permit to the named beneficiary"></div>
-    <details><summary>OPEN THE TWO SOURCE SLOTS</summary>
-     <div class="field"><label>PUBLICATION AUTHORITY ID</label><input id="publicationAuthority" value="RAW_RELEASE"></div>
-     <div class="field"><label>PUBLICATION RECORD URL</label><input id="publication" value="https://raw.githubusercontent.com/warnedwarn/notice-clock/main/docs/evidence/publication.md"></div>
-     <div class="field"><label>EFFECTIVE AUTHORITY ID</label><input id="effectiveAuthority" value="CDN_EFFECTIVE"></div>
-     <div class="field"><label>EFFECTIVE-DATE RECORD URL</label><input id="effective" value="https://cdn.jsdelivr.net/gh/warnedwarn/notice-clock@main/docs/evidence/effective-date.md"></div>
-    </details>
-    <button class="action" id="post">POST NOTICE</button>
-   </article>
-   <article class="stage measure-stage">
-    <div class="stage-no"><b>02 · COUNT</b><span>ANY OBSERVER</span></div>
-    <p>Pull once. Validators extract the dates; deterministic calendar arithmetic moves the dial.</p>
-    <button class="lever" id="measure">MEASURE<br>INTERVAL</button>
-    <button class="action demo" id="demo">RUN 44-DAY DEMO</button>
-   </article>
-   <article class="stage verdict-stage">
-    <div class="stage-no"><b>03 · READ THE STAMP</b><span>FINAL STATE</span></div>
-    <div class="stamp"><span id="verdict">UNMEASURED</span><strong id="stampGap">—</strong><small>CALENDAR DAYS ON RECORD</small></div>
-    <div class="chain-log" id="output"><div class="chain-row"><b>STATUS</b><span>No finalized notice selected.</span></div></div>
-    <button class="action" id="consume">CONSUME RELEASE</button>
-   </article>
-  </section>
-  <section class="utility">
-   <input id="replacementAuthority" placeholder="Replacement authority ID">
-   <input id="replacement" placeholder="Replacement source URL — enabled only after CONFLICT">
-   <select id="slot" aria-label="Source slot to revise"><option value="0">PUBLICATION SLOT</option><option value="1">EFFECTIVE SLOT</option></select>
-   <button id="revise">REVISE CONFLICT</button>
-   <input id="lookup" placeholder="Notice ID to read">
-   <button id="load">READ FINAL RECORD</button>
-  </section>
-  <p class="status" id="status">STUDIONET · READY</p>
- </section>
-</main>
-<script type="module">
-import{createAccount,createClient}from'https://esm.sh/genlayer-js@1.1.8';import{studionet}from'https://esm.sh/genlayer-js@1.1.8/chains';
-const ADDRESS='0xEaB42219B0707Aa42a8E76254E833A447aB1DD8E',ENDPOINT='https://studio.genlayer.com/api',$=s=>document.querySelector(s),months=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];let client;
-const status=x=>$('#status').textContent=x;
-function row(label,value){const line=document.createElement('div'),name=document.createElement('b'),text=document.createElement('span');line.className='chain-row';name.textContent=label;text.textContent=String(value);line.append(name,text);return line}
-function show(x){const out=$('#output');out.replaceChildren();if(x?.error){const line=row('ERROR',x.error);line.classList.add('error');out.append(line);return}const values=[];if(x?.noticeId)values.push(['NOTICE',x.noticeId]);if(x?.id)values.push(['NOTICE',x.id]);if(x?.state)values.push(['STATE',x.state]);if(x?.decision)values.push(['DECISION',x.decision]);if(x?.consequence)values.push(['CONSEQUENCE',x.consequence]);if(x?.beneficiary)values.push(['BENEFICIARY',x.beneficiary]);if(x?.gapDays!==undefined)values.push(['INTERVAL',x.gapDays+' days']);if(x?.gap_days!==undefined)values.push(['INTERVAL',x.gap_days+' days']);if(x?.publication_date)values.push(['PUBLISHED',x.publication_date]);if(x?.effective_date)values.push(['EFFECTIVE',x.effective_date]);if(x?.transactions)for(const[k,v]of Object.entries(x.transactions))values.push(['TX · '+k.toUpperCase(),v]);if(!values.length)values.push(['STATUS','No finalized notice selected.']);values.forEach(([a,b])=>out.append(row(a,b)))}
-async function connect(){if(!window.ethereum)throw Error('Install MetaMask or Rabby.');const[a]=await ethereum.request({method:'eth_requestAccounts'});client=createClient({chain:studionet,endpoint:ENDPOINT,account:a,provider:ethereum});status('WALLET CONNECTED')}
-async function send(c,name,args){status('SUBMITTED · '+name);const hash=await c.writeContract({address:ADDRESS,functionName:name,args,value:0n});status('WAITING FOR FINALIZED · '+hash);const receipt=await c.waitForTransactionReceipt({hash,status:'FINALIZED',retries:180,interval:5000});if(String(receipt.result_name??receipt.resultName??'').toUpperCase()!=='MAJORITY_AGREE')throw Error('FINALIZED WITHOUT AGREEMENT');return hash}
-function paint(x){if(x.publication_date){const p=x.publication_date.split('-');$('#publicationDay').textContent=p[2];$('#publicationLabel').textContent=months[Number(p[1])-1]+' '+p[0]}if(x.effective_date){const e=x.effective_date.split('-');$('#effectiveDay').textContent=e[2];$('#effectiveLabel').textContent=months[Number(e[1])-1]+' '+e[0]}const days=x.gap_days??x.gapDays??'—';$('#gap').textContent=days;$('#stampGap').textContent=days;$('#verdict').textContent=x.decision||x.state||'UNMEASURED';$('#minimumLabel').textContent='minimum '+(x.minimum_days??$('#minimum').value)}
-async function read(c=client,id=($('#lookup').value||$('#nid').value).trim()){const reader=c||createClient({chain:studionet,endpoint:ENDPOINT});const x=await reader.readContract({address:ADDRESS,functionName:'get_notice',args:[id]});paint(x);show(x);return x}
-$('#connect').onclick=()=>connect().catch(e=>show({error:e.message}));
-$('#post').onclick=async()=>{try{if(!client)await connect();await send(client,'post_notice',[$('#nid').value,$('#subject').value,$('#publicationAuthority').value,$('#publication').value,$('#effectiveAuthority').value,$('#effective').value,Number($('#minimum').value),$('#beneficiary').value,$('#consequence').value]);await read(client,$('#nid').value)}catch(e){show({error:e.message})}};
-$('#measure').onclick=async()=>{try{if(!client)await connect();await send(client,'measure_notice',[$('#nid').value]);await read(client,$('#nid').value)}catch(e){show({error:e.message})}};
-$('#consume').onclick=async()=>{try{if(!client)await connect();await send(client,'consume_release',[$('#nid').value]);await read(client,$('#nid').value)}catch(e){show({error:e.message})}};
-$('#revise').onclick=async()=>{try{if(!client)await connect();await send(client,'revise_source',[$('#nid').value,Number($('#slot').value),$('#replacementAuthority').value,$('#replacement').value]);await read(client,$('#nid').value)}catch(e){show({error:e.message})}};
-$('#load').onclick=()=>read().catch(e=>show({error:e.message}));
-$('#demo').onclick=async()=>{const actor=createAccount(),ac=createClient({chain:studionet,endpoint:ENDPOINT,account:actor}),id='NOTICE-'+Date.now(),tx={};$('#nid').value=id;$('#lookup').value=id;$('#beneficiary').value=actor.address;try{tx.post=await send(ac,'post_notice',[id,'Harbor evening entry procedure',$('#publicationAuthority').value,$('#publication').value,$('#effectiveAuthority').value,$('#effective').value,30,actor.address,$('#consequence').value]);tx.measure=await send(ac,'measure_notice',[id]);tx.consume=await send(ac,'consume_release',[id]);const x=await read(ac,id);if(x.state!=='CONSUMED'||x.decision!=='AUTHORIZED'||Number(x.gap_days)!==44)throw Error('EXPECTED CONSUMED AUTHORIZATION');status('DEMO FINALIZED');paint(x);show({noticeId:id,state:x.state,decision:x.decision,gapDays:x.gap_days,transactions:tx})}catch(e){status('DEMO FAILED');show({error:e.message,transactions:tx})}};
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Notice Clock</title>
+    <style>
+      :root {
+        --navy: #0b2736;
+        --deep: #061c28;
+        --paper: #f4efdf;
+        --orange: #f05a36;
+        --yellow: #f2c94c;
+        --sky: #b9dce8;
+        --line: #34505c;
+        --white: #fffdf5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--navy);
+        color: var(--paper);
+        font-family: "Trebuchet MS", Arial, sans-serif;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      .station {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 76px 1fr;
+      }
+      .rail {
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        background: var(--orange);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 0;
+        color: var(--deep);
+      }
+      .rail b,
+      .rail span,
+      .rail button {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+      }
+      .rail b {
+        font:
+          900 15px/1 ui-monospace,
+          monospace;
+        letter-spacing: 0.14em;
+      }
+      .rail span {
+        font:
+          800 9px ui-monospace,
+          monospace;
+        letter-spacing: 0.17em;
+      }
+      .rail button {
+        border: 2px solid var(--deep);
+        background: transparent;
+        padding: 13px 9px;
+        font:
+          900 9px ui-monospace,
+          monospace;
+      }
+      .desk {
+        padding: 28px 3.5vw 60px;
+      }
+      .intro {
+        display: grid;
+        grid-template-columns: 1fr 330px;
+        gap: 32px;
+        align-items: end;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 22px;
+      }
+      .intro small {
+        font:
+          800 10px ui-monospace,
+          monospace;
+        letter-spacing: 0.17em;
+        color: var(--sky);
+      }
+      .intro h1 {
+        font-size: clamp(3.2rem, 7vw, 7.8rem);
+        line-height: 0.78;
+        letter-spacing: -0.075em;
+        margin: 8px 0 0;
+      }
+      .intro p {
+        margin: 0;
+        font:
+          13px/1.6 ui-monospace,
+          monospace;
+        color: var(--sky);
+        border-left: 8px solid var(--yellow);
+        padding-left: 18px;
+      }
+      .date-dial {
+        display: grid;
+        grid-template-columns: 1fr minmax(190px, 260px) 1fr;
+        align-items: center;
+        gap: 3vw;
+        padding: 40px 2vw;
+      }
+      .date-ticket {
+        border: 1px solid var(--line);
+        padding: 22px;
+        background: var(--deep);
+        position: relative;
+      }
+      .date-ticket:before {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        border: 1px dashed var(--line);
+        pointer-events: none;
+      }
+      .date-ticket small {
+        position: relative;
+        font:
+          800 9px ui-monospace,
+          monospace;
+        letter-spacing: 0.15em;
+        color: var(--sky);
+      }
+      .date-ticket strong {
+        position: relative;
+        display: block;
+        font:
+          900 clamp(3rem, 7vw, 7rem) / 0.8 ui-monospace,
+          monospace;
+        color: var(--white);
+        margin: 24px 0 10px;
+      }
+      .date-ticket span {
+        position: relative;
+        font:
+          800 11px ui-monospace,
+          monospace;
+        color: var(--yellow);
+      }
+      .dial {
+        aspect-ratio: 1;
+        border: 2px solid var(--paper);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        position: relative;
+        background: conic-gradient(
+          var(--orange) 0 44deg,
+          transparent 44deg 360deg
+        );
+      }
+      .dial:before {
+        content: "";
+        position: absolute;
+        inset: 14px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: var(--navy);
+      }
+      .dial-content {
+        position: relative;
+        text-align: center;
+      }
+      .dial strong {
+        display: block;
+        font:
+          900 clamp(3.2rem, 7vw, 6rem) / 0.8 ui-monospace,
+          monospace;
+        color: var(--yellow);
+      }
+      .dial small {
+        font:
+          800 9px ui-monospace,
+          monospace;
+        letter-spacing: 0.14em;
+      }
+      .dial em {
+        display: block;
+        margin-top: 12px;
+        color: var(--sky);
+        font:
+          10px ui-monospace,
+          monospace;
+      }
+      .progress-stations {
+        display: grid;
+        grid-template-columns: 1.15fr 0.7fr 1fr;
+        border: 1px solid var(--line);
+        background: var(--deep);
+      }
+      .stage {
+        min-height: 360px;
+        padding: 24px;
+        border-right: 1px solid var(--line);
+      }
+      .stage:last-child {
+        border-right: 0;
+      }
+      .stage-no {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 15px;
+        margin-bottom: 22px;
+      }
+      .stage-no b {
+        font:
+          900 11px ui-monospace,
+          monospace;
+        color: var(--orange);
+        letter-spacing: 0.14em;
+      }
+      .stage-no span {
+        font:
+          800 9px ui-monospace,
+          monospace;
+        color: var(--sky);
+      }
+      .field {
+        display: grid;
+        gap: 5px;
+        margin: 13px 0;
+      }
+      .field label {
+        font:
+          800 9px ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+        color: var(--sky);
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid var(--sky);
+        background: transparent;
+        color: var(--white);
+        padding: 9px 2px;
+        outline: none;
+      }
+      .field select option {
+        background: var(--deep);
+      }
+      details {
+        border-top: 1px solid var(--line);
+        margin-top: 18px;
+        padding-top: 13px;
+      }
+      summary {
+        cursor: pointer;
+        font:
+          800 9px ui-monospace,
+          monospace;
+        letter-spacing: 0.12em;
+        color: var(--yellow);
+      }
+      .action {
+        width: 100%;
+        border: 0;
+        padding: 14px;
+        margin-top: 17px;
+        background: var(--orange);
+        color: var(--deep);
+        font:
+          900 10px ui-monospace,
+          monospace;
+        letter-spacing: 0.1em;
+      }
+      .measure-stage {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+      }
+      .lever {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+        border: 2px solid var(--paper);
+        border-radius: 50%;
+        background: var(--yellow);
+        color: var(--deep);
+        font:
+          900 13px/1.2 ui-monospace,
+          monospace;
+        box-shadow:
+          0 0 0 12px var(--deep),
+          0 0 0 13px var(--line);
+      }
+      .measure-stage p {
+        font:
+          11px/1.6 ui-monospace,
+          monospace;
+        color: var(--sky);
+      }
+      .demo {
+        background: transparent;
+        color: var(--yellow);
+        border: 1px solid var(--yellow);
+      }
+      .verdict-stage {
+        background: var(--paper);
+        color: var(--deep);
+      }
+      .verdict-stage .stage-no {
+        border-color: #c2bcae;
+      }
+      .verdict-stage .stage-no span {
+        color: #56717b;
+      }
+      .stamp {
+        border: 3px double var(--orange);
+        padding: 20px;
+        text-align: center;
+        transform: rotate(-1deg);
+        margin-bottom: 18px;
+      }
+      .stamp span {
+        display: block;
+        font:
+          900 20px ui-monospace,
+          monospace;
+        color: var(--orange);
+        letter-spacing: 0.08em;
+      }
+      .stamp strong {
+        display: block;
+        font:
+          900 4.5rem/1 ui-monospace,
+          monospace;
+        margin: 10px 0;
+      }
+      .stamp small {
+        font:
+          800 9px ui-monospace,
+          monospace;
+      }
+      .chain-log {
+        display: grid;
+        gap: 8px;
+        font:
+          10px/1.45 ui-monospace,
+          monospace;
+        max-height: 180px;
+        overflow: auto;
+      }
+      .chain-row {
+        display: grid;
+        grid-template-columns: 90px 1fr;
+        gap: 8px;
+        border-bottom: 1px solid #c9c1b0;
+        padding-bottom: 7px;
+      }
+      .chain-row b {
+        color: #657781;
+      }
+      .chain-row span {
+        overflow-wrap: anywhere;
+      }
+      .error {
+        color: #9d251d;
+        font-weight: 800;
+      }
+      .utility {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .utility input {
+        min-width: 0;
+        border: 1px solid var(--line);
+        background: var(--deep);
+        color: white;
+        padding: 11px;
+      }
+      .utility button {
+        border: 1px solid var(--sky);
+        background: transparent;
+        color: var(--sky);
+        padding: 10px;
+        font:
+          800 9px ui-monospace,
+          monospace;
+      }
+      .status {
+        margin: 16px 0 0;
+        color: var(--sky);
+        font:
+          10px/1.5 ui-monospace,
+          monospace;
+        overflow-wrap: anywhere;
+      }
+      @media (max-width: 900px) {
+        .station {
+          grid-template-columns: 1fr;
+        }
+        .rail {
+          position: static;
+          height: auto;
+          flex-direction: row;
+          padding: 13px 18px;
+        }
+        .rail b,
+        .rail span,
+        .rail button {
+          writing-mode: initial;
+          transform: none;
+        }
+        .intro {
+          grid-template-columns: 1fr;
+        }
+        .date-dial {
+          grid-template-columns: 1fr;
+        }
+        .dial {
+          width: 210px;
+          margin: auto;
+        }
+        .progress-stations {
+          grid-template-columns: 1fr;
+        }
+        .stage {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .stage:last-child {
+          border-bottom: 0;
+        }
+        .utility {
+          grid-template-columns: 1fr;
+        }
+        .intro h1 {
+          font-size: 4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="station">
+      <aside class="rail">
+        <b>NOTICE CLOCK</b><span>STUDIONET · PUBLIC INTERVAL</span
+        ><button id="connect">CONNECT WALLET</button>
+      </aside>
+      <section class="desk">
+        <header class="intro">
+          <div>
+            <small>LEAD-TIME MEASUREMENT STATION</small>
+            <h1>Dates enter.<br />Days decide.</h1>
+          </div>
+          <p>
+            Validators pin one publication date and one effective date to their
+            original records. The contract—not the model—counts the interval.
+          </p>
+        </header>
+        <section class="date-dial">
+          <article class="date-ticket">
+            <small>PUBLICATION RECORD</small
+            ><strong id="publicationDay">01</strong
+            ><span id="publicationLabel">SEP 2026</span>
+          </article>
+          <div class="dial">
+            <div class="dial-content">
+              <strong id="gap">—</strong><small>DAYS APART</small
+              ><em id="minimumLabel">minimum 30</em>
+            </div>
+          </div>
+          <article class="date-ticket">
+            <small>EFFECTIVE RECORD</small><strong id="effectiveDay">15</strong
+            ><span id="effectiveLabel">OCT 2026</span>
+          </article>
+        </section>
+        <section class="progress-stations">
+          <article class="stage">
+            <div class="stage-no">
+              <b>01 · PIN THE RECORDS</b><span>OWNER</span>
+            </div>
+            <div class="field">
+              <label>NOTICE ID</label><input id="nid" value="NC-WEB" />
+            </div>
+            <div class="field">
+              <label>SUBJECT</label
+              ><input id="subject" value="Harbor evening entry procedure" />
+            </div>
+            <div class="field">
+              <label>MINIMUM LEAD DAYS</label
+              ><input id="minimum" type="number" value="30" />
+            </div>
+            <div class="field">
+              <label>BENEFICIARY WALLET</label
+              ><input
+                id="beneficiary"
+                value="0x013A0745a3b2DbF87f4AB377266fCcb7e6eEC88A"
+              />
+            </div>
+            <div class="field">
+              <label>AUTHORIZED CONSEQUENCE</label
+              ><input
+                id="consequence"
+                value="Release the harbor access permit to the named beneficiary"
+              />
+            </div>
+            <details>
+              <summary>OPEN THE TWO SOURCE SLOTS</summary>
+              <div class="field">
+                <label>PUBLICATION AUTHORITY ID</label
+                ><input id="publicationAuthority" value="RAW_RELEASE" />
+              </div>
+              <div class="field">
+                <label>PUBLICATION RECORD URL</label
+                ><input
+                  id="publication"
+                  value="https://raw.githubusercontent.com/warnedwarn/notice-clock/main/docs/evidence/publication.md"
+                />
+              </div>
+              <div class="field">
+                <label>EFFECTIVE AUTHORITY ID</label
+                ><input id="effectiveAuthority" value="CDN_EFFECTIVE" />
+              </div>
+              <div class="field">
+                <label>EFFECTIVE-DATE RECORD URL</label
+                ><input
+                  id="effective"
+                  value="https://cdn.jsdelivr.net/gh/warnedwarn/notice-clock@main/docs/evidence/effective-date.md"
+                />
+              </div>
+            </details>
+            <button class="action" id="post">POST NOTICE</button>
+          </article>
+          <article class="stage measure-stage">
+            <div class="stage-no">
+              <b>02 · COUNT</b><span>ANY OBSERVER</span>
+            </div>
+            <p>
+              Pull once. Validators extract the dates; deterministic calendar
+              arithmetic moves the dial.
+            </p>
+            <button class="lever" id="measure">MEASURE<br />INTERVAL</button>
+            <button class="action demo" id="demo">RUN 44-DAY DEMO</button>
+          </article>
+          <article class="stage verdict-stage">
+            <div class="stage-no">
+              <b>03 · READ THE STAMP</b><span>FINAL STATE</span>
+            </div>
+            <div class="stamp">
+              <span id="verdict">UNMEASURED</span
+              ><strong id="stampGap">—</strong
+              ><small>CALENDAR DAYS ON RECORD</small>
+            </div>
+            <div class="chain-log" id="output">
+              <div class="chain-row">
+                <b>STATUS</b><span>No finalized notice selected.</span>
+              </div>
+            </div>
+            <button class="action" id="consume">CONSUME RELEASE</button>
+          </article>
+        </section>
+        <section class="utility">
+          <input
+            id="replacementAuthority"
+            placeholder="Replacement authority ID"
+          />
+          <input
+            id="replacement"
+            placeholder="Replacement source URL — enabled only after CONFLICT"
+          />
+          <select id="slot" aria-label="Source slot to revise">
+            <option value="0">PUBLICATION SLOT</option>
+            <option value="1">EFFECTIVE SLOT</option>
+          </select>
+          <button id="revise">REVISE CONFLICT</button>
+          <input id="lookup" placeholder="Notice ID to read" />
+          <button id="load">READ FINAL RECORD</button>
+        </section>
+        <p class="status" id="status">STUDIONET · READY</p>
+      </section>
+    </main>
+    <script type="module">
+      import {
+        createAccount,
+        createClient,
+      } from "https://esm.sh/genlayer-js@1.1.8";
+      import { studionet } from "https://esm.sh/genlayer-js@1.1.8/chains";
+  const ADDRESS = "0x7aB5599F4E80DD61781D14252d73D04Bf7E8Bdbe",
+        ENDPOINT = "https://studio.genlayer.com/api",
+        $ = (s) => document.querySelector(s),
+        months = [
+          "JAN",
+          "FEB",
+          "MAR",
+          "APR",
+          "MAY",
+          "JUN",
+          "JUL",
+          "AUG",
+          "SEP",
+          "OCT",
+          "NOV",
+          "DEC",
+        ];
+      let client;
+      const status = (x) => ($("#status").textContent = x);
+      function row(label, value) {
+        const line = document.createElement("div"),
+          name = document.createElement("b"),
+          text = document.createElement("span");
+        line.className = "chain-row";
+        name.textContent = label;
+        text.textContent = String(value);
+        line.append(name, text);
+        return line;
+      }
+      function show(x) {
+        const out = $("#output");
+        out.replaceChildren();
+        if (x?.error) {
+          const line = row("ERROR", x.error);
+          line.classList.add("error");
+          out.append(line);
+          return;
+        }
+        const values = [];
+        if (x?.noticeId) values.push(["NOTICE", x.noticeId]);
+        if (x?.id) values.push(["NOTICE", x.id]);
+        if (x?.state) values.push(["STATE", x.state]);
+        if (x?.decision) values.push(["DECISION", x.decision]);
+        if (x?.consequence) values.push(["CONSEQUENCE", x.consequence]);
+        if (x?.beneficiary) values.push(["BENEFICIARY", x.beneficiary]);
+        if (x?.gapDays !== undefined)
+          values.push(["INTERVAL", x.gapDays + " days"]);
+        if (x?.gap_days !== undefined)
+          values.push(["INTERVAL", x.gap_days + " days"]);
+        if (x?.publication_date) values.push(["PUBLISHED", x.publication_date]);
+        if (x?.effective_date) values.push(["EFFECTIVE", x.effective_date]);
+        if (x?.transactions)
+          for (const [k, v] of Object.entries(x.transactions))
+            values.push(["TX · " + k.toUpperCase(), v]);
+        if (!values.length)
+          values.push(["STATUS", "No finalized notice selected."]);
+        values.forEach(([a, b]) => out.append(row(a, b)));
+      }
+      async function connect() {
+        if (!window.ethereum) throw Error("Install MetaMask or Rabby.");
+        const [a] = await ethereum.request({ method: "eth_requestAccounts" });
+        client = createClient({
+          chain: studionet,
+          endpoint: ENDPOINT,
+          account: a,
+          provider: ethereum,
+        });
+        status("WALLET CONNECTED");
+      }
+      async function send(c, name, args) {
+        status("SUBMITTED · " + name);
+        const hash = await c.writeContract({
+          address: ADDRESS,
+          functionName: name,
+          args,
+          value: 0n,
+        });
+        status("WAITING FOR FINALIZED · " + hash);
+        const receipt = await c.waitForTransactionReceipt({
+          hash,
+          status: "FINALIZED",
+          retries: 180,
+          interval: 5000,
+        });
+        if (
+          String(
+            receipt.result_name ?? receipt.resultName ?? "",
+          ).toUpperCase() !== "MAJORITY_AGREE"
+        )
+          throw Error("FINALIZED WITHOUT AGREEMENT");
+        return hash;
+      }
+      function paint(x) {
+        if (x.publication_date) {
+          const p = x.publication_date.split("-");
+          $("#publicationDay").textContent = p[2];
+          $("#publicationLabel").textContent =
+            months[Number(p[1]) - 1] + " " + p[0];
+        }
+        if (x.effective_date) {
+          const e = x.effective_date.split("-");
+          $("#effectiveDay").textContent = e[2];
+          $("#effectiveLabel").textContent =
+            months[Number(e[1]) - 1] + " " + e[0];
+        }
+        const days = x.gap_days ?? x.gapDays ?? "—";
+        $("#gap").textContent = days;
+        $("#stampGap").textContent = days;
+        $("#verdict").textContent = x.decision || x.state || "UNMEASURED";
+        $("#minimumLabel").textContent =
+          "minimum " + (x.minimum_days ?? $("#minimum").value);
+      }
+      async function read(
+        c = client,
+        id = ($("#lookup").value || $("#nid").value).trim(),
+      ) {
+        const reader =
+          c || createClient({ chain: studionet, endpoint: ENDPOINT });
+        const x = await reader.readContract({
+          address: ADDRESS,
+          functionName: "get_notice",
+          args: [id],
+        });
+        paint(x);
+        show(x);
+        return x;
+      }
+      $("#connect").onclick = () =>
+        connect().catch((e) => show({ error: e.message }));
+      $("#post").onclick = async () => {
+        try {
+          if (!client) await connect();
+          await send(client, "post_notice", [
+            $("#nid").value,
+            $("#subject").value,
+            $("#publicationAuthority").value,
+            $("#publication").value,
+            $("#effectiveAuthority").value,
+            $("#effective").value,
+            Number($("#minimum").value),
+            $("#beneficiary").value,
+            $("#consequence").value,
+          ]);
+          await read(client, $("#nid").value);
+        } catch (e) {
+          show({ error: e.message });
+        }
+      };
+      $("#measure").onclick = async () => {
+        try {
+          if (!client) await connect();
+          await send(client, "measure_notice", [$("#nid").value]);
+          await read(client, $("#nid").value);
+        } catch (e) {
+          show({ error: e.message });
+        }
+      };
+      $("#consume").onclick = async () => {
+        try {
+          if (!client) await connect();
+          await send(client, "consume_release", [$("#nid").value]);
+          await read(client, $("#nid").value);
+        } catch (e) {
+          show({ error: e.message });
+        }
+      };
+      $("#revise").onclick = async () => {
+        try {
+          if (!client) await connect();
+          await send(client, "revise_source", [
+            $("#nid").value,
+            Number($("#slot").value),
+            $("#replacementAuthority").value,
+            $("#replacement").value,
+          ]);
+          await read(client, $("#nid").value);
+        } catch (e) {
+          show({ error: e.message });
+        }
+      };
+      $("#load").onclick = () =>
+        read().catch((e) => show({ error: e.message }));
+      $("#demo").onclick = async () => {
+        const actor = createAccount(),
+          ac = createClient({
+            chain: studionet,
+            endpoint: ENDPOINT,
+            account: actor,
+          }),
+          id = "NOTICE-" + Date.now(),
+          tx = {};
+        $("#nid").value = id;
+        $("#lookup").value = id;
+        $("#beneficiary").value = actor.address;
+        try {
+          tx.post = await send(ac, "post_notice", [
+            id,
+            "Harbor evening entry procedure",
+            $("#publicationAuthority").value,
+            $("#publication").value,
+            $("#effectiveAuthority").value,
+            $("#effective").value,
+            30,
+            actor.address,
+            $("#consequence").value,
+          ]);
+          tx.measure = await send(ac, "measure_notice", [id]);
+          tx.consume = await send(ac, "consume_release", [id]);
+          const x = await read(ac, id);
+          if (
+            x.state !== "CONSUMED" ||
+            x.decision !== "AUTHORIZED" ||
+            Number(x.gap_days) !== 44
+          )
+            throw Error("EXPECTED CONSUMED AUTHORIZATION");
+          status("DEMO FINALIZED");
+          paint(x);
+          show({
+            noticeId: id,
+            state: x.state,
+            decision: x.decision,
+            gapDays: x.gap_days,
+            transactions: tx,
+          });
+        } catch (e) {
+          status("DEMO FAILED");
+          show({ error: e.message, transactions: tx });
+        }
+      };
+    </script>
+  </body>
 </html>
